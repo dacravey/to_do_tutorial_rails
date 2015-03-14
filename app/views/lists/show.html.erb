@@ -7,7 +7,7 @@
     <h4>Here are the tasks for this list:</h4>
 
     <ul>
-      <%= @list.tasks.each do |task| %>
+      <% @list.tasks.each do |task| %>
         <li>
           <%= task.description %> |
           <%= link_to "Edit", edit_list_task_path(@list, task) %> |
