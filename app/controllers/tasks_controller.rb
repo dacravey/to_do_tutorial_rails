@@ -16,6 +16,29 @@ class TasksController < ApplicationController
   end
 
 
+  def edit
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
+  end
+
+  def update
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
+    if @task.update(params[:task])
+      flash[:notice] = "Task successfully updated!"
+      redirect_to lists_path(@task.list)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to lists_path(@task.list)
+    flash[:notice] = "Task successfully deleted!"
+  end
+
   private
   def task_params
     params.require(:task).permit(:description)
