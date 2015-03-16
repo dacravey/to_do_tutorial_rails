@@ -3,7 +3,8 @@ class Task < ActiveRecord::Base
 
   validates :description, :presence => true
 
-  after_create do
+  after_validation(on: :create) do
     self.done = false
   end
+
 end
