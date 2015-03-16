@@ -11,4 +11,13 @@ describe Task do
     end
   end
 
+  describe('.not_done') do
+    it("will return all tasks that where done is false") do
+      test_task = Task.create(description: "Clean up")
+      test_task.done = false;
+      expect(test_task.not_done).to(eq([test_task]))
+    end
+  end
+
+
 end
