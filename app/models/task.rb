@@ -10,5 +10,11 @@ class Task < ActiveRecord::Base
     self.description=(description.downcase)
   end
 
+  scope :done, -> {where(done: true)}
+  scope :not_done, -> {where(done: false)}
+
+  after_validation(on: :create) do
+    self.done = false
+  end
 
 end
