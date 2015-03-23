@@ -15,13 +15,11 @@ describe Task do
       test_task = FactoryGirl.create(:task, description: "Clean up")
       expect(test_task.done).to(eq(false))
     end
-  end
 
-  describe('.not_done') do
-    it("will return all tasks where done is false") do
+    it("will return false if task remains undone") do
       test_task = FactoryGirl.create(:task, description: "Clean up")
       test_task.done = false;
-      expect(test_task.not_done).to(eq([test_task]))
+      expect(test_task.done).to(eq(false))
     end
   end
 end
