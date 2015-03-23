@@ -5,35 +5,39 @@
 
 <% if @list.tasks.any? %>
     <h4>Here are the tasks not done for this list:</h4>
+
     <%= form_tag('/tasks/complete/', :method => "post") do %>
       <% @list.tasks.each do |task| %>
-      <ul>
-            <li>
-              <%= check_box_tag "tasks_checkbox[]", task.id %>
-              <%= task.description %> |
-              <%= link_to "Edit", edit_list_task_path(@list, task) %> |
-              <%= link_to "Delete", list_task_path(@list, task),
-                                        :data => {:confirm => "Are you sure?",
-                                                  :method => "delete"} %>
-              </li>
-            <%= submit_tag("Complete Tasks") %>
-
+      <% if task.done == false %>
+        <ul>
+          <li>
+            <%= check_box_tag "tasks_checkbox[]", task.id %>
+            <%= task.description %> |
+            <%= link_to "Edit", edit_list_task_path(@list, task) %> |
+            <%= link_to "Delete", list_task_path(@list, task),
+                                      :data => {:confirm => "Are you sure?",
+                                                :method => "delete"} %>
+          </li>
+          <%= submit_tag("Complete Task") %>
+        </ul>
         <% end %>
+      <% end %>
     <% end %>
+    <hr>
 
-
+    <h4>Here are the completed Tasks:</h4>
       <ul>
         <% @list.tasks.each do |task| %>
           <% if task.done %>
             <li><%= task.description %></li>
           <% end%>
         <% end %>
+          <% else %>
+              <p>There are no tasks yet</p>
+          <% end %>
       </ul>
 
-<% else %>
-    <p>There are no tasks yet</p>
-<% end %>
-
+<hr>
 <p><%= link_to "Add a Task", new_list_task_path(@list) %></p>
 <p><%= link_to "Edit", edit_list_path(@list) %></p>
 <p><%= link_to "Delete", list_path(@list),
