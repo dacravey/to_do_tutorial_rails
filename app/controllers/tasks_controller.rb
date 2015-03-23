@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show]
+
   def new
     @list = List.find(params[:list_id])
     @task = @list.tasks.new()
